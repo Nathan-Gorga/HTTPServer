@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <sockets.h>
+#include <sys/socket.h>
 
 #endif
