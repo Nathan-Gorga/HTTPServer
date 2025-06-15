@@ -5,8 +5,8 @@ HTTPServer : main.o
 	./HTTPServer
 
 
-main.o : main.c
-	clang -c main.c -o main.o
+main.o : src/main.c
+	clang -c src/main.c -o main.o
 
 clean:
 	rm -f *.o 
