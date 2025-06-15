@@ -86,5 +86,7 @@ can send data to the client or receive data from the client.*/
 
 Close the socket*/
 
+int createTCPSocket()
+
 
 #endif
