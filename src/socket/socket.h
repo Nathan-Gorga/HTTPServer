@@ -3,7 +3,8 @@
 
 #include "../definitions.h"
 #include <sys/socket.h>
-
+#include <netinet/in.h>
+#include <sys/types.h>
 /* THIS IS HOW SOCKET CREATION WORKS:*/
 
 /*- 1. Socket Creation 
@@ -86,7 +87,7 @@ can send data to the client or receive data from the client.*/
 
 Close the socket*/
 
-int createTCPSocket()
+int createTCPSocket(void);
 
 
 #endif
