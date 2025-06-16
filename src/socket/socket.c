@@ -4,6 +4,7 @@
 
 int createTCPSocket(void){//IPV4
 
+    //this is so coolS
     int server_socket_fd;
 
     struct sockaddr_in address;
