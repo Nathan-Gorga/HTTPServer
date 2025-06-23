@@ -5,12 +5,9 @@ int main (void){
 
     //DIVE IN DEPTH INTO THIS FUNCTION AND UNDERSTAND EVERY LINE
     int socket_fd = createTCPSocket();
+    
+    PRINTF_DEBUG
 
-    if(socket_fd != 0){
-        return 1;
-    }
-
-    (void)printf("Socket %d listening...\n",socket_fd); 
 
     if(close(socket_fd) != 0){
         perror("Error closing socket");
