@@ -37,7 +37,7 @@
 
 // for use
 
-#define FUNC "\033[2;32m"
+#define FUNC "\033[2;36m"
 #define ERROR "\033[41;4;33m"
 
 #endif

@@ -1,5 +1,6 @@
 #include "socket.h"
 
+#define LOCAL_IP_ADDRESS ((in_addr_t) htonl(0x7F000001))
 #define SERVER_SOCKET_PORT 8080
 #define VERBOSE true
 
@@ -31,7 +32,7 @@ int createTCPSocket(void){//IPV4
 
 
     address.sin_family = AF_INET;
-    address.sin_addr.s_addr = INADDR_ANY;
+    address.sin_addr.s_addr = LOCAL_IP_ADDRESS;
     address.sin_port = htons(SERVER_SOCKET_PORT);
 
     // Forcefully attaching socket to the port 8080
@@ -41,16 +42,10 @@ int createTCPSocket(void){//IPV4
         perror(ERROR"bind failed"RESET);
         exit(EXIT_FAILURE);
     }
+    char ip_str[INET_ADDRSTRLEN];
+    inet_ntop(AF_INET, &(address.sin_addr), ip_str, INET_ADDRSTRLEN);
     if(VERBOSE)
-        PRINT_FUNC(void)printf("socket %d successfully bound to address/port : %d/%d\n", server_socket_fd, address.sin_addr.s_addr, address.sin_port);    
-
-    if (listen(server_socket_fd, 3) < 0) {
-        perror(ERROR"listen failed"RESET);
-        exit(EXIT_FAILURE);
-    }
-
-    if(VERBOSE)
-        PRINT_FUNC(void)printf("socket %d listening...\n",server_socket_fd); 
+        PRINT_FUNC(void)printf("socket %d successfully bound to address/port : %s/%d\n", server_socket_fd, ip_str, ntohs(address.sin_port));    
 
     
     return server_socket_fd;
