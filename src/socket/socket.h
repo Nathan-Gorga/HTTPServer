@@ -87,7 +87,18 @@ can send data to the client or receive data from the client.*/
 
 Close the socket*/
 
-int createTCPSocket(void);
+enum RETURN_ERROR_CODES createTCPSocket(int*);
+
+enum RETURN_ERROR_CODES{ 
+    SUCCESS,
+    SOCKET_CREATION_FAILED,
+    BIND_FAILED,    
+    LISTEN_FAILED,
+    RECV_FAILED,
+    SENDING_FAILED,
+    CLOSING_SOCKET_FAILED,
+    NUM_ERROR_CODES      
+};
 
 
 #endif
