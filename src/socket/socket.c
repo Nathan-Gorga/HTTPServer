@@ -6,7 +6,7 @@
 int createTCPSocket(void){//IPV4
 
     if(VERBOSE)
-        (void)printf(FUNC"%s"RESET" : initializing socket...\n", __func__);    
+        PRINT_FUNC(void)printf("initializing socket...\n");    
     int server_socket_fd;
 
     struct sockaddr_in address;
@@ -17,7 +17,7 @@ int createTCPSocket(void){//IPV4
         exit(EXIT_FAILURE);
     }
     if(VERBOSE)
-        (void)printf(FUNC"%s"RESET" : socket %d created\n", __func__, server_socket_fd);    
+        PRINT_FUNC(void)printf("socket %d created\n", server_socket_fd);    
 
     
     // USEFUL WHEN MULTI_THREADING OR LOAD BALANCING, FOR NOW, NOT OF USE
@@ -42,7 +42,7 @@ int createTCPSocket(void){//IPV4
         exit(EXIT_FAILURE);
     }
     if(VERBOSE)
-        (void)printf(FUNC"%s"RESET" : socket %d successfully bound to address/port : %d/%d\n", __func__, server_socket_fd, address.sin_addr.s_addr, address.sin_port);    
+        PRINT_FUNC(void)printf("socket %d successfully bound to address/port : %d/%d\n", server_socket_fd, address.sin_addr.s_addr, address.sin_port);    
 
     if (listen(server_socket_fd, 3) < 0) {
         perror(ERROR"listen failed"RESET);
@@ -50,7 +50,7 @@ int createTCPSocket(void){//IPV4
     }
 
     if(VERBOSE)
-        (void)printf(FUNC"%s"RESET" : socket %d listening...\n", __func__,server_socket_fd); 
+        PRINT_FUNC(void)printf("socket %d listening...\n",server_socket_fd); 
 
     
     return server_socket_fd;
