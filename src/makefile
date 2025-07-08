@@ -1,27 +1,18 @@
-CC = clang
-CFLAGS = -std=c99 -Wall -Wpedantic
+CC=gcc
+CFLAGS=-Wall -Wextra -Werror -Wpedantic
+LDFLAGS=
 
-HTTPServer : main.o socket.o server.o
-	$(CC) main.o socket.o server.o -o HTTPServer
-	make clean
-	clear
-	./HTTPServer
+SRCS=main.c socket/socket.c server/server.c
+OBJS=$(SRCS:.c=.o)
+EXEC=HTTPServer
 
+all: $(EXEC)
 
-main.o : main.c
-	$(CC) $(CFLAGS) -c main.c -o main.o
+$(EXEC): $(OBJS)
+	$(CC) $(LDFLAGS) -o $@ $^
 
-socket.o : socket/socket.c
-	$(CC) $(CFLAGS) -c socket/socket.c -o socket.o
-
-
-server.o : server/server.c
-	$(CC) $(CFLAGS) -c server/server.c -o server.o
-
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
 
 clean:
-	rm -f *.o 
-
-
-
-
+	rm -f *.o

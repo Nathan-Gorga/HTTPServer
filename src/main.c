@@ -4,7 +4,6 @@
 
 int main (void){
 
-    (void)launchTCPServer();
 
     return 0;
 }
