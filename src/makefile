@@ -1,18 +1,25 @@
-CC=gcc
-CFLAGS=-Wall -Wextra -Werror -Wpedantic
-LDFLAGS=
+# Compiler and flags
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -std=c11
 
-SRCS=main.c socket/socket.c server/server.c
-OBJS=$(SRCS:.c=.o)
-EXEC=HTTPServer
+# Source and object files
+SRCS = main.c SOCKET/socket.c
+OBJS = $(SRCS:.c=.o)
 
-all: $(EXEC)
+# Output binary
+TARGET = HTTPServer
 
-$(EXEC): $(OBJS)
-	$(CC) $(LDFLAGS) -o $@ $^
+# Default rule
+all: $(TARGET)
+	@make clean
+	@./$(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -c $< -o $@
 
+# Clean rule
 clean:
-	rm -f *.o
+	rm -f $(OBJS) 
