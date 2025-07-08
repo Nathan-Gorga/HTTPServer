@@ -15,9 +15,9 @@
 #endif
 
 #ifdef FUNC_IN_PRINTF
-#define  PRINT_FUNC (void)printf(FUNC"%s"RESET" : ", __func__);
+    #define  printf(...) (void)printf(FUNC"%s"RESET" : ", __func__);printf(__VA_ARGS__); (void)fflush(stdout);
 #else
-#define PRINT_FUNC
+    #define PRINT_FUNC
 #endif
 
 
