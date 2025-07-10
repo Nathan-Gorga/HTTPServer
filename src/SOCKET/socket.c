@@ -1,7 +1,7 @@
 #include "socket.h"
 #define PORT 8080
 
-RETURN_CODES _createTCPSocket(int * sockfd){//TESTME
+static RETURN_CODES _createTCPSocket(int * sockfd){
 
 
     struct sockaddr_in server_addr;
@@ -13,12 +13,12 @@ RETURN_CODES _createTCPSocket(int * sockfd){//TESTME
     // 2. Set socket options (optional but recommended)
     int opt = 1;
     if (setsockopt(*sockfd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0) {
-        close(*sockfd);
+        (void)close(*sockfd);
         return SET_SOCKOPT_FAILED;
     }
 
     // 3. Prepare sockaddr_in structure
-    memset(&server_addr, 0, sizeof(server_addr));
+    (void)memset(&server_addr, 0, sizeof(server_addr));
 
     server_addr.sin_family = AF_INET;            // IPv4
     server_addr.sin_addr.s_addr = INADDR_ANY;    // Any incoming interface
@@ -33,8 +33,6 @@ RETURN_CODES _createTCPSocket(int * sockfd){//TESTME
     return OK;  
 }
 
-
-
 int createTCPSocket(void){
 
     int sockfd;
@@ -44,26 +42,70 @@ int createTCPSocket(void){
     switch(code){
 
         case OK:
-            printf(GREEN"Socket created successfully\n"RESET);
+            (void)printf(GREEN"Socket created successfully\n"RESET);
             return sockfd;
 
         case SOCKET_CREATION_FAILED:
-            printf(ERROR"Socket creation failed\n"RESET);
+            (void)printf(ERROR"Socket creation failed\n"RESET);
             break;
         
         case SET_SOCKOPT_FAILED:
-            printf(ERROR"Setting socket options failed\n"RESET);
+            (void)printf(ERROR"Setting socket options failed\n"RESET);
             break;
         
         case SOCKET_BIND_FAILED:
-            printf(ERROR"Socket bind failed\n"RESET);
+            (void)printf(ERROR"Socket bind failed\n"RESET);
             break;
 
         default:         
-            printf(ERROR"Unknown error\n"RESET);
+            (void)printf(ERROR"Unknown error\n"RESET);
     }
     return -1;
 }
 
+int listenTCPSocket(int * sockfd){
+    
+    if (listen(*sockfd, BACKLOG) < 0) {
+        
+        (void)close(*sockfd);
+        
+        return -1;
+    }
 
+    printf("Listening on port %d\n", PORT);
 
+    return 0;
+}
+
+int closeTCPSocket(int * sockfd){
+
+    (void)close(*sockfd);
+
+    return 0;
+}
+
+int acceptTCPRequest(int * server_fd){
+    
+    struct sockaddr_in client_addr;
+    
+    socklen_t addr_len = sizeof(client_addr);
+
+    int client_fd;
+
+    printf("Awaiting client connection...\n");
+
+    while (1) {
+
+        client_fd = accept(*server_fd, (struct sockaddr*)&client_addr, &addr_len);
+
+        if (client_fd >= 0) {
+
+            break;
+
+        }
+    }
+
+    printf("Connection accepted from %s:%d\n", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
+
+    return client_fd;
+}

@@ -22,4 +22,4 @@ $(TARGET): $(OBJS)
 
 # Clean rule
 clean:
-	rm -f $(OBJS) 
+	rm -rf $(OBJS) 

@@ -3,9 +3,17 @@
 
 #include "../definitions.h"
 
-RETURN_CODES _createTCPSocket(int * sockfd);
+#define BACKLOG 5
 
 int createTCPSocket(void);
+
+int listenTCPSocket(int * sockfd);
+
+int closeTCPSocket(int * sockfd);
+
+int acceptTCPRequest(int * sockfd);
+
+
 
 #endif
 
