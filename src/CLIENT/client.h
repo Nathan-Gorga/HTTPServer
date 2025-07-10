@@ -1,9 +1,13 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
-#include "../definitions.h"
 
-int connectTCP(struct sockaddr * server_addr, int * client_fd);
+#include "../definitions.h"
+#include "../SERVER/server.h"
+#include "../CONNECT/connect.h"
+#include "../SOCKET/socket.h"
+
 
 #endif
+
 

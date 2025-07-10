@@ -3,11 +3,11 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -std=c11
 
 # Source and object files
-SRCS = main.c SOCKET/socket.c
+SRCS = SERVER/server.c SOCKET/socket.c CONNECT/connect.c 
 OBJS = $(SRCS:.c=.o)
 
 # Output binary
-TARGET = HTTPServer
+TARGET = Server
 
 # Default rule
 all: $(TARGET)

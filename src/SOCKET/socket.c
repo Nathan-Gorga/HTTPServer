@@ -1,5 +1,5 @@
 #include "socket.h"
-#define PORT 8080
+
 
 static RETURN_CODES _createTCPSocket(int * sockfd){
 
@@ -22,7 +22,7 @@ static RETURN_CODES _createTCPSocket(int * sockfd){
 
     server_addr.sin_family = AF_INET;            // IPv4
     server_addr.sin_addr.s_addr = INADDR_ANY;    // Any incoming interface
-    server_addr.sin_port = htons(PORT);          // Port in network byte order
+    server_addr.sin_port = htons(SERVER_PORT);          // Port in network byte order
 
     // 4. Bind
     if (bind(*sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
@@ -72,7 +72,7 @@ int listenTCPSocket(int * sockfd){
         return -1;
     }
 
-    printf("Listening on port %d\n", PORT);
+    printf("Listening on port %d\n", SERVER_PORT);
 
     return 0;
 }
