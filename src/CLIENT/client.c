@@ -10,14 +10,16 @@ int main(void){
 
     if(client_connection.sockfd < 0) goto fail;
 
-    char buffer[1024] = {0};
-
+    
     while(1){
+
+        char buffer[1024] = {'\0'};
+
         printf("> ");
-        scanf("%s",buffer);//FIXME : buffer overflow hazard
-
+        
+        fgets(buffer, sizeof(buffer), stdin);
+        
         send(client_fd, buffer, strlen(buffer), 0);
-
     }
 
     close(client_fd);
