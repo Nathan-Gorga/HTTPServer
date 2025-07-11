@@ -3,7 +3,7 @@
 
 #include "../definitions.h"
 
-int connectTCP(struct sockaddr * server_addr, int * client_fd);
+sock_info connectTCP(const char * restrict server_ip, const uint16_t server_port, const int * restrict client_fd);
 
 #endif
 

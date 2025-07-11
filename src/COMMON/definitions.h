@@ -17,6 +17,11 @@ typedef enum {
     NUM_CODES,
 }RETURN_CODES;
 
+typedef struct {
+    int sockfd;
+    struct sockaddr_in addr;
+}sock_info;
+
 
 
 #endif

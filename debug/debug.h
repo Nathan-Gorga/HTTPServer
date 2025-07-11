@@ -1,7 +1,7 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
-#include "../src/definitions.h"
+#include "../src/COMMON/definitions.h"
 #include "text_color.h"
 
 // #define DEBUG_MODE

@@ -6,7 +6,9 @@
 
 #define BACKLOG 5
 
-int createTCPServerSocket(void);
+sock_info createTCPServerSocket(void);
+
+int createTCPCLientSocket(void);
 
 int listenTCPSocket(int * sockfd);
 

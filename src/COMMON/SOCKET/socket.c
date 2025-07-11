@@ -1,49 +1,72 @@
 #include "socket.h"
 
 
-static RETURN_CODES _createTCPServerSocket(int * sockfd){
+static int createTCPSocket(int * sockfd){
 
-
-    struct sockaddr_in server_addr;
-
-    // 1. Create socket
     *sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (*sockfd < 0) return SOCKET_CREATION_FAILED;
 
-    // 2. Set socket options (optional but recommended)
+    if(*sockfd < 0) return SOCKET_CREATION_FAILED;
+
+    return OK;
+}
+
+static int setTCPSocketOptions(int * sockfd){
+
     int opt = 1;
+
     if (setsockopt(*sockfd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0) {
+
         (void)close(*sockfd);
+
         return SET_SOCKOPT_FAILED;
     }
 
-    // 3. Prepare sockaddr_in structure
-    (void)memset(&server_addr, 0, sizeof(server_addr));
+    return OK;
+}
 
-    server_addr.sin_family = AF_INET;            // IPv4
-    server_addr.sin_addr.s_addr = INADDR_ANY;    // Any incoming interface
-    server_addr.sin_port = htons(SERVER_PORT);          // Port in network byte order
+static int bindTCPSocket(int * sockfd, struct sockaddr_in * addr){
 
-    // 4. Bind
-    if (bind(*sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
+    (void)memset(addr, 0, sizeof(struct sockaddr_in));
+
+    addr->sin_family = AF_INET;            
+
+    addr->sin_addr.s_addr = INADDR_ANY;    
+
+    addr->sin_port = htons(SERVER_PORT);   
+    
+    if (bind(*sockfd, (struct sockaddr*)addr, sizeof(struct sockaddr)) < 0) {
         close(*sockfd);
         return SOCKET_BIND_FAILED;
     }
 
+    return OK;
+}
+
+
+static int _createTCPServerSocket(int * server_fd, struct sockaddr_in * server_addr){
+
+    if (createTCPSocket(server_fd) != OK) return SOCKET_CREATION_FAILED;
+    
+    if (setTCPSocketOptions(server_fd) != OK) return SET_SOCKOPT_FAILED;
+    
+    if (bindTCPSocket(server_fd, server_addr) != OK) return SOCKET_BIND_FAILED;
+    
     return OK;  
 }
 
-int createTCPServerSocket(void){
+sock_info createTCPServerSocket(void){
 
     int sockfd;
 
-    const RETURN_CODES code = _createTCPServerSocket(&sockfd);
+    struct sockaddr_in server_addr;
+
+    const int code = _createTCPServerSocket(&sockfd, &server_addr);
 
     switch(code){
 
         case OK:
             (void)printf(GREEN"Socket created successfully\n"RESET);
-            return sockfd;
+            return (sock_info){sockfd, server_addr};
 
         case SOCKET_CREATION_FAILED:
             (void)printf(ERROR"Socket creation failed\n"RESET);
@@ -60,7 +83,16 @@ int createTCPServerSocket(void){
         default:         
             (void)printf(ERROR"Unknown error\n"RESET);
     }
-    return -1;
+    return (sock_info){-1, {}};
+}
+
+int createTCPCLientSocket(void){
+
+    int sockfd;
+    
+    if (createTCPSocket(&sockfd) != OK) return -1;
+    
+    return sockfd;
 }
 
 int listenTCPSocket(int * sockfd){

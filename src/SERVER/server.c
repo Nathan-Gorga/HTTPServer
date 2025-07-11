@@ -2,7 +2,10 @@
 
 int main (void){
 
-    int server_fd = createTCPServerSocket();
+    sock_info server_info = createTCPServerSocket();
+
+    int server_fd = server_info.sockfd;
+    // struct sockaddr_in server_addr = server_info.addr;
 
     if (server_fd < 0) return 1;
     

@@ -6,6 +6,8 @@
         "main.h": "c",
         "server.h": "c",
         "client.h": "c",
-        "connect.h": "c"
+        "connect.h": "c",
+        "definitions.h": "c",
+        "debug.h": "c"
     }
 }
