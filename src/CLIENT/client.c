@@ -10,8 +10,15 @@ int main(void){
 
     if(client_connection.sockfd < 0) goto fail;
 
-    const char *msg = "Hello from client!";
-    send(client_fd, msg, strlen(msg), 0);
+    char buffer[1024] = {0};
+
+    while(1){
+        printf("> ");
+        scanf("%s",buffer);//FIXME : buffer overflow hazard
+
+        send(client_fd, buffer, strlen(buffer), 0);
+
+    }
 
     close(client_fd);
 

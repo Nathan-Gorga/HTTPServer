@@ -15,22 +15,25 @@ int main (void){
 
     if(client_fd < 0) return 1;
 
-    char buffer[1024] = {0};
+    while (1) {
 
-    int bytes_received = recv(client_fd, buffer, sizeof(buffer) - 1, 0); // leave space for '\0'
-
-    if (bytes_received > 0) {
-
-        buffer[bytes_received] = '\0'; // Null-terminate
+        char buffer[1024] = {0};
         
-        printf("Received from client: %s\n", buffer);
+        int bytes_received = recv(client_fd, buffer, sizeof(buffer) - 1, 0);
+    
+        if (bytes_received <= 0) {
 
-    } else if (bytes_received == 0) {
+            printf("Client disconnected or error occurred\n");
 
-        printf("Client disconnected\n");
-    } else {
-        
-        perror("recv failed");
+            break;
+        }
+    
+        buffer[bytes_received] = '\0';
+    
+        printf("Client says: %s\n", buffer);
+    
+        // Echo back
+        send(client_fd, buffer, bytes_received, 0);
     }
 
     if(closeTCPSocket(&server_fd) != 0) return 1;
