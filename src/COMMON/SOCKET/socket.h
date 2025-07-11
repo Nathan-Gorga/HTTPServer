@@ -2,7 +2,7 @@
 #define SOCKET_H
 
 #include "../definitions.h"
-#include "../SERVER/server.h"
+#include "../../SERVER/server.h"
 
 #define BACKLOG 5
 

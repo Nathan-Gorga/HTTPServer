@@ -1,25 +1,27 @@
 # Compiler and flags
-CC = gcc
+CC = clang
 CFLAGS = -Wall -Wextra -Werror -std=c11
 
-# Source and object files
-SRCS = SERVER/server.c SOCKET/socket.c CONNECT/connect.c 
-OBJS = $(SRCS:.c=.o)
+# Sources
+COMMON_SRC = ./COMMON/SOCKET/socket.c ./COMMON/CONNECT/connect.c
+SERVER_SRC = ./SERVER/server.c $(COMMON_SRC)
+CLIENT_SRC = ./CLIENT/client.c $(COMMON_SRC)
 
-# Output binary
-TARGET = Server
+# Targets
+SERVER_BIN = server
+CLIENT_BIN = client
 
-# Default rule
-all: $(TARGET)
+.PHONY: all clean
+
+all: $(SERVER_BIN) $(CLIENT_BIN)
 	@make clean
-	@./$(TARGET)
+	@./$(SERVER_BIN)
 
-$(TARGET): $(OBJS)
+$(SERVER_BIN): $(SERVER_SRC)
 	$(CC) $(CFLAGS) -o $@ $^
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+$(CLIENT_BIN): $(CLIENT_SRC)
+	$(CC) $(CFLAGS) -o $@ $^
 
-# Clean rule
 clean:
-	rm -rf $(OBJS) 
+	rm -rf "*.o"

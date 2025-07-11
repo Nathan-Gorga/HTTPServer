@@ -1,8 +1,8 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#include "../definitions.h"
-#include "../SOCKET/socket.h"
+#include "../COMMON/SOCKET/socket.h"
+#include "../COMMON/definitions.h"
 
 #define SERVER_PORT 8080
 #define SERVER_IP "127.0.0.1"

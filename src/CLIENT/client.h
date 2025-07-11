@@ -2,10 +2,10 @@
 #define CLIENT_H
 
 
-#include "../definitions.h"
+#include "../COMMON/definitions.h"
 #include "../SERVER/server.h"
-#include "../CONNECT/connect.h"
-#include "../SOCKET/socket.h"
+#include "../COMMON/CONNECT/connect.h"
+#include "../COMMON/SOCKET/socket.h"
 
 
 #endif
