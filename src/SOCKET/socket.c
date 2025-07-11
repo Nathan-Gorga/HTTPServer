@@ -1,7 +1,7 @@
 #include "socket.h"
 
 
-static RETURN_CODES _createTCPSocket(int * sockfd){
+static RETURN_CODES _createTCPServerSocket(int * sockfd){
 
 
     struct sockaddr_in server_addr;
@@ -33,11 +33,11 @@ static RETURN_CODES _createTCPSocket(int * sockfd){
     return OK;  
 }
 
-int createTCPSocket(void){
+int createTCPServerSocket(void){
 
     int sockfd;
 
-    const RETURN_CODES code = _createTCPSocket(&sockfd);
+    const RETURN_CODES code = _createTCPServerSocket(&sockfd);
 
     switch(code){
 

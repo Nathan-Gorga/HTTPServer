@@ -2,7 +2,7 @@
 
 int main (void){
 
-    int server_fd = createTCPSocket();
+    int server_fd = createTCPServerSocket();
 
     if (server_fd < 0) return 1;
     

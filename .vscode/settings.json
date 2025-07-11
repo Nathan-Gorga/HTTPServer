@@ -2,6 +2,10 @@
     "files.associations": {
         "stdbool.h": "c",
         "socket.h": "c",
-        "unistd.h": "c"
+        "unistd.h": "c",
+        "main.h": "c",
+        "server.h": "c",
+        "client.h": "c",
+        "connect.h": "c"
     }
 }
