@@ -18,7 +18,9 @@ int main(void){
         printf("> ");
         
         fgets(buffer, sizeof(buffer), stdin);
-        
+
+        if (strcmp(buffer, "quit()\n") == 0) break;
+
         send(client_fd, buffer, strlen(buffer), 0);
     }
 

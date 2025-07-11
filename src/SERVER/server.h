@@ -2,6 +2,7 @@
 #define SERVER_H
 
 #include "../COMMON/SOCKET/socket.h"
+#include "../COMMON/CONNECT/connect.h"
 #include "../COMMON/definitions.h"
 
 #define SERVER_PORT 8080

@@ -14,26 +14,16 @@ int main (void){
     int client_fd = acceptTCPRequest(&server_fd);
 
     if(client_fd < 0) return 1;
+    
+    char buffer[1024] = {'\0'};
 
     while (1) {
 
-        char buffer[1024] = {0};
+        receiveMessage(client_fd, buffer);
         
-        int bytes_received = recv(client_fd, buffer, sizeof(buffer) - 1, 0);
-    
-        if (bytes_received <= 0) {
+        if(buffer[0] == '\0') break;
 
-            printf("Client disconnected or error occurred\n");
-
-            break;
-        }
-    
-        buffer[bytes_received] = '\0';
-    
-        printf("Client says: %s\n", buffer);
-    
-        // Echo back
-        send(client_fd, buffer, bytes_received, 0);
+        printf("%s\n", buffer);
     }
 
     if(closeTCPSocket(&server_fd) != 0) return 1;
