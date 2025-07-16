@@ -116,7 +116,7 @@ int closeTCPSocket(int * sockfd){
     return 0;
 }
 
-int acceptTCPRequest(int * server_fd){
+int acceptTCPRequest(int * server_fd, char * restrict username){
     
     struct sockaddr_in client_addr;
     
@@ -138,6 +138,8 @@ int acceptTCPRequest(int * server_fd){
     }
 
     printf("Connection accepted from %s:%d\n", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
+
+    receiveMessage(client_fd, username);
 
     return client_fd;
 }

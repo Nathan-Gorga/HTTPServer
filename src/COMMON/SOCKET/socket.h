@@ -14,7 +14,7 @@ int listenTCPSocket(int * sockfd);
 
 int closeTCPSocket(int * sockfd);
 
-int acceptTCPRequest(int * sockfd);
+int acceptTCPRequest(int * sockfd, char * restrict username);
 
 
 

@@ -2,6 +2,8 @@
 
 int main (void){
 
+    char username[64] = {'\0'};
+
     FILE * conversationFile = openFile();
 
     sock_info server_info = createTCPServerSocket();
@@ -13,7 +15,7 @@ int main (void){
     
     if(listenTCPSocket(&server_fd) != 0) return 1;
 
-    int client_fd = acceptTCPRequest(&server_fd);
+    int client_fd = acceptTCPRequest(&server_fd, username);
 
     if(client_fd < 0) return 1;
     
@@ -27,7 +29,7 @@ int main (void){
 
         if(writeToFile(conversationFile, buffer) != 0) return 1;
 
-        printf("%s", buffer);
+        printf("%s: %s",username, buffer);
     }
 
     if(closeTCPSocket(&server_fd) != 0) return 1;
