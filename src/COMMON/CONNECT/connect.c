@@ -1,7 +1,7 @@
 #include "connect.h"
 
 
-sock_info connectTCP(const char * restrict server_ip, const uint16_t server_port, const int * restrict client_fd){
+sock_info connectTCP(const char * restrict server_ip, const uint16_t server_port, const int * restrict client_fd, const char * restrict username){
 
     struct sockaddr_in server_addr;
 
@@ -14,6 +14,8 @@ sock_info connectTCP(const char * restrict server_ip, const uint16_t server_port
     if (connect(*client_fd, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0) return (sock_info){-1, {}};
 
     printf("Connected to server at %s:%d\n", server_ip, server_port);
+
+    sendMessage(username, *client_fd);
 
     return (sock_info){*client_fd, server_addr};
 
@@ -39,6 +41,15 @@ void receiveMessage(const int client_fd, char messageBack[]){
     strcpy(messageBack, buffer);
 }
 
+
+int sendMessage(const char * restrict message, const int client_fd){
+
+    if (strcmp(message, "quit()\n") == 0) return -1;
+
+    send(client_fd, message, strlen(message), 0);
+
+    return 0;
+}
 
 
 

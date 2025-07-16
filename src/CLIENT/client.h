@@ -6,7 +6,7 @@
 #include "../SERVER/server.h"
 #include "../COMMON/CONNECT/connect.h"
 #include "../COMMON/SOCKET/socket.h"
-
+#include "../COMMON/USERNAME/username.h"
 
 #endif
 
