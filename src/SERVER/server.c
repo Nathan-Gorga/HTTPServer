@@ -23,13 +23,13 @@ int main (void){
 
     while (1) {
 
-        receiveMessage(client_fd, buffer);
+        receiveMessage(client_fd, buffer, username);
         
         if(buffer[0] == '\0') break;
 
         if(writeToFile(conversationFile, buffer) != 0) return 1;
 
-        printf("%s: %s",username, buffer);
+        printf(CYAN"%s:"RESET" %s",username, buffer);
     }
 
     if(closeTCPSocket(&server_fd) != 0) return 1;

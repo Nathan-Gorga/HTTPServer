@@ -35,7 +35,9 @@ static int bindTCPSocket(int * sockfd, struct sockaddr_in * addr){
     addr->sin_port = htons(SERVER_PORT);   
     
     if (bind(*sockfd, (struct sockaddr*)addr, sizeof(struct sockaddr)) < 0) {
+
         close(*sockfd);
+        
         return SOCKET_BIND_FAILED;
     }
 
@@ -139,7 +141,7 @@ int acceptTCPRequest(int * server_fd, char * restrict username){
 
     printf("Connection accepted from %s:%d\n", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
 
-    receiveMessage(client_fd, username);
+    receiveMessage(client_fd, username, NULL);
 
     return client_fd;
 }

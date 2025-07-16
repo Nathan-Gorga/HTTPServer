@@ -24,7 +24,7 @@ int closeFile(FILE * fp){
 
 int writeToFile(FILE * fp, char * message){
     
-    if(fprintf(fp, "%s\n", message) < 0) return -1;
+    if(fprintf(fp, "%s", message) < 0) return -1;
     
     return 0; 
 }

@@ -21,7 +21,7 @@ sock_info connectTCP(const char * restrict server_ip, const uint16_t server_port
 
 }
 
-void receiveMessage(const int client_fd, char messageBack[]){
+void receiveMessage(const int client_fd, char messageBack[], const char * restrict username){
 
     char buffer[1024] = {0};
         
@@ -29,7 +29,7 @@ void receiveMessage(const int client_fd, char messageBack[]){
 
     if (bytes_received <= 0) {
 
-        printf("Client disconnected\n");
+        printf("%s disconnected\n", username);
 
         messageBack[0] = '\0';
 
