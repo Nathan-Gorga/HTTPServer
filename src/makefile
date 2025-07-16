@@ -3,7 +3,7 @@ CC = clang
 CFLAGS = -Wall -Wextra -Werror -std=c11
 
 # Sources
-COMMON_SRC = ./COMMON/SOCKET/socket.c ./COMMON/CONNECT/connect.c
+COMMON_SRC = ./COMMON/SOCKET/socket.c ./COMMON/CONNECT/connect.c ./COMMON/FILE/file.c
 SERVER_SRC = ./SERVER/server.c $(COMMON_SRC)
 CLIENT_SRC = ./CLIENT/client.c $(COMMON_SRC)
 

@@ -2,6 +2,8 @@
 
 int main (void){
 
+    FILE * conversationFile = openFile();
+
     sock_info server_info = createTCPServerSocket();
 
     int server_fd = server_info.sockfd;
@@ -23,12 +25,16 @@ int main (void){
         
         if(buffer[0] == '\0') break;
 
-        printf("%s\n", buffer);
+        if(writeToFile(conversationFile, buffer) != 0) return 1;
+
+        printf("%s", buffer);
     }
 
     if(closeTCPSocket(&server_fd) != 0) return 1;
 
     if(closeTCPSocket(&client_fd) != 0) return 1;
+
+    if(closeFile(conversationFile) != 0) return 1;
 
     return 0;
 }
