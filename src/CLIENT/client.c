@@ -6,10 +6,21 @@ int main(void){
 
     int client_fd = createTCPCLientSocket();
 
-    sock_info client_connection = connectTCP(SERVER_IP, SERVER_PORT, &client_fd);
+    int try_connection = 5;
 
-    if(client_connection.sockfd < 0) goto fail;
+    sock_info client_connection;
 
+    do{
+
+        client_connection = connectTCP(SERVER_IP, SERVER_PORT, &client_fd);
+        
+        sleep(1);
+
+        printf("Attempting connection to server...\n");
+        
+    }while(client_connection.sockfd < 0 && try_connection--);
+
+    if(try_connection <= 0) printf(RED"Connection failed\n"RESET); goto fail;
     
     while(1){
 
